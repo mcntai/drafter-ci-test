@@ -28,5 +28,5 @@ jobs:
       - name: Push Changes
         run: |
           git add scripts/data.json
-          git commit -m "Add generated JSON data"
+          git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${GITHUB_ACTOR}" commit -m "Add generated JSON data"
           git push
