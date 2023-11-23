@@ -26,6 +26,7 @@ jobs:
           echo "Sync Result: $SYNC_RESULT"
 
       - name: Push Changes
+        if: steps.sync-templates.outputs.sync-result == 'true'
         run: |
           git add scripts/data.json
           git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${GITHUB_ACTOR}" commit -m "Add generated JSON data"
