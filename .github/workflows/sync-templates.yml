@@ -16,15 +16,23 @@ jobs:
       - name: Sync Templates
         id: sync-templates
         run: |
-          # Run the Node.js script and capture the result
-          SYNC_RESULT=$(yarn sync:email-templates 2>/dev/null)
-          
-          echo "::set-output name=sync-result::$SYNC_RESULT"
-          
-          echo Result ${{ steps.sync-templates.outputs.sync-result }}
+          yarn sync:email-templates
+
+      - name: Check Populated File
+        run: |
+          # Read the content of data.json
+          DATA_JSON_CONTENT=$(cat scripts/data.json)
+
+          if [[ "$DATA_JSON_CONTENT" != "[]" ]]; then
+            echo "Data.json is not empty"
+            echo "::set-output name=data-json-empty::false"
+          else
+            echo "Data.json is empty"
+            echo "::set-output name=data-json-empty::true"
+          fi
 
       - name: Push Changes
-        if: steps.sync-templates.outputs.sync-result == 'true'
+        if: steps.check-data-json.outputs.data-json-empty == 'false'
         run: |
           git add scripts/data.json
           git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${GITHUB_ACTOR}" commit -m "Add generated JSON data"
