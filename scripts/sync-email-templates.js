@@ -17,5 +17,5 @@
 
   console.log({ syncResult: Boolean(data.length) })
 
-  return Boolean(data.length)
+  return Boolean(data.length).toString()
 })()
