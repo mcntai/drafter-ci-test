@@ -1,0 +1,28 @@
+name: Conditional Deploy
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'template-changed')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Sync Templates
+        run: |
+          result=$(yarn sync:email-templates)
+          echo "::set-output name=sync-result::$result"
+
+        if: steps.if_merged.outputs.sync-result == 'true'
+
+          git checkout -b new-branch
+          git add app/data.json
+          git commit -m "Add generated JSON data"
+
+          # Push the changes directly to the target branch
+          git push origin new-branch:${{ github.event.pull_request.base.ref }}
