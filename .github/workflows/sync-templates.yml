@@ -25,12 +25,7 @@ jobs:
           # Debug: Print the value of SYNC_RESULT
           echo "Sync Result: $SYNC_RESULT"
 
-      - name: Debug Sync Result
-        run: | 
-          echo "Sync Result from script: ${{ steps.sync-templates.outputs.sync-result }}"
-
       - name: Push Changes
-        if: steps.sync-templates.outputs.sync-result == 'true'
         run: |
           git add scripts/data.json
           git commit -m "Add generated JSON data"
