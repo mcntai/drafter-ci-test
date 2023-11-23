@@ -1,4 +1,4 @@
-name: Conditional Deploy
+name: Sync Templates Flow
 
 on:
   pull_request:
@@ -15,11 +15,18 @@ jobs:
 
       - name: Sync Templates
         run: |
-          echo "sync-result=$(yarn sync:email-templates)" >> $GITHUB_ENV
-          
-          if [[ "${{ env.SYNC_RESULT }}" == 'true' ]]; then
+          # Run the Node.js script and capture the result
+          SYNC_RESULT=$(yarn sync:email-templates)
+
+          # Output the result to GITHUB_ENV
+          echo "sync-result=$SYNC_RESULT" >> $GITHUB_ENV
+
+          # Debug: Print the value of SYNC_RESULT
+          echo "Sync Result: $SYNC_RESULT"
+
+          if [[ "$SYNC_RESULT" == 'true' ]]; then
             git checkout -b new-branch
             git add scripts/data.json
-            git commit -m "Add generated JSON data [ci skip]"
+            git commit -m "Add generated JSON data"
             git push origin new-branch:${{ github.event.pull_request.base.ref }}
           fi
