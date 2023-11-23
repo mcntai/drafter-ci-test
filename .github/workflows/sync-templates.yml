@@ -15,14 +15,11 @@ jobs:
 
       - name: Sync Templates
         run: |
-          result=$(yarn sync:email-templates)
-          echo "::set-output name=sync-result::$result"
-
-          if [[ "${{ steps.if_merged.outputs.sync-result }}" == 'true' ]]; then
+          echo "sync-result=$(yarn sync:email-templates)" >> $GITHUB_ENV
+          
+          if [[ "${{ env.SYNC_RESULT }}" == 'true' ]]; then
             git checkout -b new-branch
             git add scripts/data.json
             git commit -m "Add generated JSON data [ci skip]"
-
-            # Push the changes directly to the target branch
             git push origin new-branch:${{ github.event.pull_request.base.ref }}
           fi
