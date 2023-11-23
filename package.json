@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app/index.js",
     "jira:sync": "node scripts/sync-jira",
-    "release": "node semantic-release"
+    "release": "node semantic-release",
+    "sync:email-templates": "node scripts/sync-email-templates"
   },
   "repository": {
     "type": "git",
