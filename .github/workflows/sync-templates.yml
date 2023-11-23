@@ -24,16 +24,7 @@ jobs:
           DATA_JSON_CONTENT=$(cat scripts/data.json)
 
           if [[ "$DATA_JSON_CONTENT" != "[]" ]]; then
-            echo "Data.json is not empty"
-            echo "::set-output name=data-json-empty::false"
-          else
-            echo "Data.json is empty"
-            echo "::set-output name=data-json-empty::true"
+            git add scripts/data.json
+            git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${GITHUB_ACTOR}" commit -m "Add generated JSON data"
+            git push
           fi
-
-      - name: Push Changes
-        if: steps.check-data-json.outputs.data-json-empty == 'false'
-        run: |
-          git add scripts/data.json
-          git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${GITHUB_ACTOR}" commit -m "Add generated JSON data"
-          git push
