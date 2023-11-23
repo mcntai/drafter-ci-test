@@ -1,9 +1,7 @@
-'use strict'
+(async () => {
+  const path = require('path')
+  const fs = require('fs').promises
 
-const path = require('path')
-const fs = require('fs').promises
-
-module.exports = async () => {
   const filePath = path.join(__dirname, 'data.json')
 
   const rawData = await fs.readFile(filePath)
@@ -20,4 +18,4 @@ module.exports = async () => {
   console.log({ syncResult: Boolean(data.length) })
 
   return Boolean(data.length)
-}
+})()
