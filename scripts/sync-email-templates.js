@@ -11,7 +11,7 @@
 
   const updatedData = JSON.stringify(data, null, 2)
 
-  await fs.writeFile(filePath, updatedData)
+  // await fs.writeFile(filePath, updatedData)
 
   console.log(Boolean(data.length))
 
