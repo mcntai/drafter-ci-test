@@ -18,17 +18,11 @@ jobs:
         run: |
           # Run the Node.js script and capture the result
           SYNC_RESULT=$(yarn sync:email-templates)
-          
-          # Log the result
-          echo "Sync Result: $SYNC_RESULT"
 
           # Output the result to GITHUB_ENV
           echo "sync-result=$SYNC_RESULT" >> $GITHUB_ENV
 
-          # Debug: Print the value of SYNC_RESULT
-          echo "Sync Result: $SYNC_RESULT"
-
-          if [[ "$SYNC_RESULT" == 'true' ]]; then
+          if [[ "${{ steps.sync-templates.outputs.sync-result }}" == 'true' ]]; then
             git add scripts/data.json
             git commit -m "Add generated JSON data"
             git push

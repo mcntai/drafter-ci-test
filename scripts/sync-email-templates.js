@@ -14,12 +14,7 @@
 
     await fs.writeFile(filePath, updatedData)
 
-    console.log(JSON.stringify(data, null, 2))
-
-    console.log(JSON.stringify({ syncResult: Boolean(data.length) }))
-
-    // Return the result in a format that can be captured by GitHub Actions
-    process.exitCode = 0 // Indicate success
+    return Boolean(data.length)
   } catch (error) {
     console.error(error.message)
     process.exitCode = 1 // Indicate failure
