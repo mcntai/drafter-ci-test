@@ -20,10 +20,7 @@ jobs:
           SYNC_RESULT=$(yarn sync:email-templates 2>/dev/null)
           
           # Output the result as an output variable
-          echo "::set-output name=sync-result::$SYNC_RESULT"
-          
-          # Debug: Print the value of SYNC_RESULT
-          echo "Sync Result: $SYNC_RESULT"
+          echo "Sync Result ::set-output name=sync-result::$SYNC_RESULT"
 
       - name: Push Changes
         if: steps.sync-templates.outputs.sync-result == 'true'
