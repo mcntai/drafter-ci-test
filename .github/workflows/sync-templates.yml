@@ -22,12 +22,8 @@ jobs:
           # Output the result as an output variable
           echo "::set-output name=sync-result::$SYNC_RESULT"
 
-      - name: Log Sync Result
-        run: |
-          echo "Sync Result (before if condition): ${{ steps.sync-templates.outputs.sync-result }}"
-
       - name: Push Changes
-        if: steps.sync-templates.outputs.sync-result == 'true'
+        if: $SYNC_RESULT == 'true'
         run: |
           git add scripts/data.json
           git commit -m "Add generated JSON data"
