@@ -18,9 +18,6 @@ jobs:
         run: |
           # Run the Node.js script and capture the result
           SYNC_RESULT=$(yarn sync:email-templates 2>/dev/null)
-          
-          # Output the result as an output variable
-          echo "Sync Result ::set-output name=sync-result::$SYNC_RESULT"
 
       - name: Push Changes
         if: steps.sync-templates.outputs.sync-result == 'true'
