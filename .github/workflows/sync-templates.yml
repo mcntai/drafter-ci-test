@@ -18,6 +18,9 @@ jobs:
         run: |
           # Run the Node.js script and capture the result
           SYNC_RESULT=$(yarn sync:email-templates)
+          
+          # Log the result
+          echo "Sync Result: $SYNC_RESULT"
 
           # Output the result to GITHUB_ENV
           echo "sync-result=$SYNC_RESULT" >> $GITHUB_ENV
@@ -26,8 +29,7 @@ jobs:
           echo "Sync Result: $SYNC_RESULT"
 
           if [[ "$SYNC_RESULT" == 'true' ]]; then
-            git checkout -b new-branch
             git add scripts/data.json
             git commit -m "Add generated JSON data"
-            git push origin new-branch:${{ github.event.pull_request.base.ref }}
+            git push
           fi
