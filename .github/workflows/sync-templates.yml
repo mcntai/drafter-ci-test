@@ -20,6 +20,9 @@ jobs:
           SYNC_RESULT=$(yarn sync:email-templates)
           
           echo "Sync Result: $SYNC_RESULT"
+          
+          # Output the result to GITHUB_ENV
+          echo "sync-result=$SYNC_RESULT" >> $GITHUB_ENV
 
           if [[ "$SYNC_RESULT" == 'true' ]]; then
             git add scripts/data.json
