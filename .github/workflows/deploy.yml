@@ -64,6 +64,14 @@ jobs:
         id: api-deployment
         run: |
           echo "success=true" >> "$GITHUB_OUTPUT"
+
+      - name: Sync Templates
+        if: "contains(github.event.head_commit.message, 'template-changed')"
+        run: yarn sync:email-templates
+          git add scripts/data.json
+          git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${GITHUB_ACTOR}" commit -m "add updated templates meta data [ci skip]"
+          git push
+
       - name: Deploy DB
         id: db-deployment
         run: |
@@ -107,12 +115,6 @@ jobs:
         run: |
           echo ${{ needs.deploy.outputs.api-deployment }}
           echo ${{ needs.deploy.outputs.db-deployment }}
-      - name: Sync Templates
-        if: "contains(github.event.head_commit.message, 'template-changed')"
-        run: yarn sync:email-templates
-          git add scripts/data.json
-          git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${GITHUB_ACTOR}" commit -m "Add generated JSON data"
-          git push
       - name: Release
         run: yarn release
         env:
