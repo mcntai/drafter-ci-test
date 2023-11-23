@@ -17,7 +17,7 @@ jobs:
         id: sync-templates
         run: |
           # Run the Node.js script and capture the result
-          SYNC_RESULT=$(yarn sync:email-templates)
+          SYNC_RESULT=$(yarn sync:email-templates 2>/dev/null)
           
           # Output the result as an output variable
           echo "::set-output name=sync-result::$SYNC_RESULT"
