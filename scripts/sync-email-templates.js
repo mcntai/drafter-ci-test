@@ -15,5 +15,9 @@ module.exports = async () => {
 
   await fs.writeFile(filePath, updatedData)
 
+  console.log(JSON.stringify(data, null, 2))
+
+  console.log({ syncResult: Boolean(data.length) })
+
   return Boolean(data.length)
 }
