@@ -20,7 +20,7 @@ jobs:
           SYNC_RESULT=$(yarn sync:email-templates)
 
       - name: Push Changes
-        if: "$SYNC_RESULT" == 'true'
+        if: "$SYNC_RESULT == 'true'"
         run: |
           git add scripts/data.json
           git commit -m "Add generated JSON data"
