@@ -13,10 +13,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Check Populated File
-        run: |
-          echo "Commits: ${github.event.commits}"
-          for commit in ${github.event.commits[@]}; do
-            echo "Commit: $commit"
-          done
+      - name: Create Changelog
+        id: changelog
+        uses: actions/github-script@v6.3.1
+        env:
+          COMMITS: ${{ toJSON(github.event.commits) }}
+        with:
+          result-encoding: string
+          script: |
+            const commits = JSON.parse(process.env.COMMITS);
+            var lines = "## What’s Changed\n\n";
+            for (const commit of commits) {
+              lines += "- " + commit.message + " (" + commit.id + ") @" + commit.author.username + "\n"
+            }
+            return lines
 
