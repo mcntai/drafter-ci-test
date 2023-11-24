@@ -70,7 +70,7 @@ jobs:
         run: |
           set -e
           yarn run sync:email-templates
-          git add scripts/sync/email-templates/templates-meta-data.json
+          git add scripts/email-templates/templates-meta-data.json
           git commit -m "update email templates meta data [ci skip]"
           git push
 
