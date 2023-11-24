@@ -48,28 +48,6 @@ jobs:
           envkey_TEST: ${{ secrets.TEST_SECRET }}
           envkey_TEST_VAR: ${{ vars.TEST_VAR }}
 
-      - name: Use New Commits
-        run: |
-          # Access the environment variable NEW_COMMIT_LIST
-          new_commit_list="$NEW_COMMIT_LIST"
-          
-          echo "New Commit List: $new_commit_list"
-          
-          # Loop through the new commits and do something with the messages
-          while IFS= read -r line; do
-            commit_hash=$(echo "$line" | cut -d ' ' -f1)
-            commit_message=$(echo "$line" | cut -d ' ' -f2-)
-          
-            # Do something with the commit message, e.g., check for triggers
-            echo "Commit $commit_hash message: $commit_message"
-          
-            # Your logic here based on the commit message
-            if [[ "$commit_message" == "template-changed" ]]; then
-              # Your logic for when the trigger word is found
-              echo "Trigger word found!"
-            fi
-          done <<< "$new_commit_list"
-
       - name: Logging
         run: |
           echo '${{toJSON(github.event.commits)}}'
