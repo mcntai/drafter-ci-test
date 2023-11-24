@@ -1,5 +1,7 @@
 (async () => {
-  throw new Error('some error')
+  console.log('some error')
+
+  process.exit(-1)
 
   const path = require('path')
   const fs = require('fs').promises
