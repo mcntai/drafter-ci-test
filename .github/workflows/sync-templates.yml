@@ -7,27 +7,8 @@ on:
 
 jobs:
   if_merged:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'template-changed')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Create Changelog
-        id: changelog
-        uses: actions/github-script@v6.3.1
-        env:
-          COMMITS: ${{ toJSON(github.event.commits) }}
-        with:
-          result-encoding: string
-          script: |
-            const commits = JSON.parse(process.env.COMMITS);
-            var lines = "## What’s Changed\n\n";
-            for (const commit of commits) {
-              lines += "- " + commit.message + " (" + commit.id + ") @" + commit.author.username + "\n"
-            }
-            return lines
-
-      - name: Create Release
-        run: |
-          echo "${{ steps.changelog.outputs.result }}" > changelog.txt
+        uses: actions/checkout@v2]
