@@ -48,6 +48,10 @@ jobs:
           envkey_TEST: ${{ secrets.TEST_SECRET }}
           envkey_TEST_VAR: ${{ vars.TEST_VAR }}
 
+      - name: Get Previous Commit
+        id: prev_commit
+        run: echo "::set-output name=hash::$(git log -1 --pretty=format:'%H')"
+
       - name: Logging
         run: |
           echo '${{toJSON(github.event.commits)}}'
