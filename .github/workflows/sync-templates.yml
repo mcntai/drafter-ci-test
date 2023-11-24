@@ -13,11 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Sync Templates
-        id: sync-templates
-        run: |
-          yarn sync:email-templates
-
       - name: Check Populated File
         run: |
           echo "Commits: ${github.event.commits}"
