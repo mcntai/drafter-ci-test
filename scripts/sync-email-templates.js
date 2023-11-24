@@ -2,7 +2,7 @@
   const path = require('path')
   const fs = require('fs').promises
 
-  const filePath = path.join(__dirname, 'data.json')
+  const filePath = path.join(__dirname, 'templates-meta-data.json')
 
   const rawData = await fs.readFile(filePath)
   const data = JSON.parse(rawData)
