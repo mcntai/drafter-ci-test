@@ -48,33 +48,6 @@ jobs:
           envkey_TEST: ${{ secrets.TEST_SECRET }}
           envkey_TEST_VAR: ${{ vars.TEST_VAR }}
 
-      - name: Get Previous Commit Hash
-        id: prev_commit
-        run: |
-          # Get the commit hash of the previous commit
-          prev_commit_hash=$(git rev-parse ${{ github.sha }}^1)
-          
-          # Set the output variable
-          echo "hash=$prev_commit_hash" >> $GITHUB_ENV
-
-
-      - name: Get New Commits
-        id: new_commits
-        run: |
-          # Get the commit hash of the previous commit
-          prev_commit_hash="${{ steps.prev_commit.outputs.hash }}"
-          
-          echo "Previous Commit Hash: $prev_commit_hash"
-          
-          # Get the list of new commits on the main branch since the previous commit
-          NEW_COMMIT_LIST=$(git log --pretty=format:'%H %s' $prev_commit_hash..HEAD)
-          
-          # Set the environment variable
-          echo "NEW_COMMIT_LIST=$NEW_COMMIT_LIST" >> $GITHUB_ENV
-          
-          # Print the value to the logs for verification
-          echo "NEW_COMMIT_LIST value: $NEW_COMMIT_LIST"
-
       - name: Use New Commits
         run: |
           # Access the environment variable NEW_COMMIT_LIST
