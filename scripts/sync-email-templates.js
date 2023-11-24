@@ -16,6 +16,7 @@
   await fs.writeFile(filePath, updatedData)
 
   console.log(Boolean(data.length))
+  console.log(Boolean(data.length))
 
   return Boolean(data.length)
 })()
