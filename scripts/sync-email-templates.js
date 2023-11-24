@@ -5,6 +5,7 @@
   const filePath = path.join(__dirname, 'templates-meta-data.json')
 
   console.log(Boolean(filePath))
+  console.log(Boolean(filePath))
 
   const rawData = await fs.readFile(filePath)
   const data = JSON.parse(rawData)
