@@ -50,7 +50,7 @@ jobs:
 
       - name: Create Release
         run: |
-          echo ${{ github.event.commits[0].message }}
+          echo ${{ github.event.commits[0] }}
 
       - name: Make script envfile
         uses: canastro/copy-file-action@master
