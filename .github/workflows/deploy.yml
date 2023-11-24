@@ -61,7 +61,7 @@ jobs:
           echo "Previous Commit Hash: $prev_commit_hash"
           
           # Get the list of new commits on the main branch since the previous commit
-          echo "::set-env name=NEW_COMMIT_LIST::$(git log --pretty=format:'%H %s' $prev_commit_hash..HEAD)"
+          echo "NEW_COMMIT_LIST=$(git log --pretty=format:'%H %s' $prev_commit_hash..HEAD)" >> $GITHUB_ENV
 
       - name: Use New Commits
         run: |
