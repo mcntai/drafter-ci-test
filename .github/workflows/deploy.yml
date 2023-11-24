@@ -64,9 +64,8 @@ jobs:
         id: api-deployment
         run: |
           echo "success=true" >> "$GITHUB_OUTPUT"
-              echo "Commit Messages:"
               for commit in "${{ github.event.commits }}"; do
-              echo "- $commit"
+              echo "- $commit.message"
               done
 
       - name: Sync Email Templates And Commit Changes
