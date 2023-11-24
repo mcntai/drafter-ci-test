@@ -48,16 +48,6 @@ jobs:
           envkey_TEST: ${{ secrets.TEST_SECRET }}
           envkey_TEST_VAR: ${{ vars.TEST_VAR }}
 
-      - name: Get Previous Commit Hash
-        id: prev_commit
-        run: |
-          # Get the commit hash of the previous commit
-          prev_commit_hash=$(git rev-parse ${{ github.sha }}^1)
-          
-          # Set the output variable
-          echo "hash=$prev_commit_hash" >> $GITHUB_ENV
-
-
       - name: Get New Commits
         id: new_commits
         run: |
