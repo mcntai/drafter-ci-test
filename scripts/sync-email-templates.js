@@ -20,6 +20,10 @@
   await fs.writeFile(filePath, updatedData)
 
   await execAsync('git add scripts/templates-meta-data.json')
+  await execAsync('git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" '
+    + '-c user.name="${GITHUB_ACTOR}" '
+    + 'commit -m "add updated templates meta data [ci skip]"',
+  )
   await execAsync('git commit -m "update email templates meta data [ci skip]"')
   await execAsync('git push')
 
