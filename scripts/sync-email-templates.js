@@ -19,8 +19,11 @@
 
   await fs.writeFile(filePath, updatedData)
 
+  const userEmail = `-c user.email="${process.env.GITHUB_ACTOR}@users.noreply.github.com"`
+  const userName = `-c user.name="${process.env.GITHUB_ACTOR}"`
+
   await execAsync('git add scripts/templates-meta-data.json')
-  await execAsync(`git -c user.email="${process.env.GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${process.env.GITHUB_ACTOR}" commit -m "add updated templates meta data [ci skip]"`)
+  await execAsync(`git ${userEmail} ${userName} commit -m "add updated templates meta data [ci skip]"`)
   await execAsync('git push')
 
 
