@@ -66,7 +66,7 @@ jobs:
           echo "success=true" >> "$GITHUB_OUTPUT"
           for commit in "${{ github.event.commits }}"
           do
-            echo "- $$commit.message"
+            echo "$commit.message"
           done
 
       - name: Sync Email Templates And Commit Changes
