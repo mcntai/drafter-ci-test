@@ -48,10 +48,6 @@ jobs:
           envkey_TEST: ${{ secrets.TEST_SECRET }}
           envkey_TEST_VAR: ${{ vars.TEST_VAR }}
 
-      - name: Create Release
-        run: |
-          echo ${{ github.event.commits[0].message }}
-
       - name: Logging
         run: |
           echo "${{toJSON(github.event)}}"
