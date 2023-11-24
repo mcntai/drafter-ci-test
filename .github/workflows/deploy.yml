@@ -52,6 +52,10 @@ jobs:
         id: prev_commit
         run: echo "::set-output name=hash::$(git log -1 --pretty=format:'%H')"
 
+      - name: Log Previous Commit Hash
+        run: |
+          echo "Previous Commit Hash: ${{ steps.prev_commit.outputs.hash }}"
+
       - name: Get New Commits
         id: new_commits
         run: |
