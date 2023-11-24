@@ -20,11 +20,8 @@ jobs:
 
       - name: Check Populated File
         run: |
-          # Read the content of data.json
-          DATA_JSON_CONTENT=$(cat scripts/data.json)
+          echo "Commits: ${github.event.commits}"
+          for commit in ${github.event.commits[@]}; do
+            echo "Commit: $commit"
+          done
 
-          if [[ "$DATA_JSON_CONTENT" != "[]" ]]; then
-            git add scripts/data.json
-            git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${GITHUB_ACTOR}" commit -m "Add generated JSON data"
-            git push
-          fi
