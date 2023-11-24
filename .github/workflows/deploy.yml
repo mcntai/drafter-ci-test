@@ -62,6 +62,9 @@ jobs:
           
           # Get the list of new commits on the main branch since the previous commit
           echo "NEW_COMMIT_LIST=$(git log --pretty=format:'%H %s' $prev_commit_hash..HEAD)" >> $GITHUB_ENV
+          
+          # Print the value to the logs for verification
+          echo "NEW_COMMIT_LIST value: $NEW_COMMIT_LIST"
 
       - name: Use New Commits
         run: |
