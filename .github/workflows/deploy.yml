@@ -64,6 +64,10 @@ jobs:
         id: api-deployment
         run: |
           echo "success=true" >> "$GITHUB_OUTPUT"
+              echo "Commit Messages:"
+              for commit in "${{ github.event.commits }}"; do
+              echo "- $commit"
+              done
 
       - name: Sync Email Templates And Commit Changes
         if: "contains(github.event.head_commit.message, 'template-changed')"
