@@ -7,25 +7,13 @@ on:
 
 jobs:
   if_merged:
-    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'template-changed')
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create Changelog
-        id: changelog
-        uses: actions/github-script@v6.3.1
-        env:
-          COMMITS: ${{ toJSON(github.event.commits) }}
-        with:
-          result-encoding: string
-          script: |
-            const commits = JSON.parse(process.env.COMMITS);
-            var lines = "## What’s Changed\n\n";
-            for (const commit of commits) {
-              lines += "- " + commit.message + "\n"
-            }
-            console.log(lines);
-            return lines
+      - name: Check Populated File
+        run: |
+          echo "Commits: toJSON(github.event.commits)
 
