@@ -65,12 +65,13 @@ jobs:
         run: |
           echo "success=true" >> "$GITHUB_OUTPUT"
 
-      - name: Sync Templates
+      - name: Sync Email Templates And Commit Changes
         if: "contains(github.event.head_commit.message, 'template-changed')"
         run: |
-          yarn sync:email-templates
-          git add scripts/data.json
-          git -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" -c user.name="${GITHUB_ACTOR}" commit -m "add updated templates meta data [ci skip]"
+          set -e
+          yarn run sync:email-templates
+          git add scripts/sync/email-templates/templates-meta-data.json
+          git commit -m "update email templates meta data [ci skip]"
           git push
 
       - name: Deploy DB
