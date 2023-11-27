@@ -78,6 +78,8 @@ jobs:
       - name: Deploy DB
         id: db-deployment
         run: |
+          set -e
+          yarn run deploy:db-changes
           echo "success=true" >> "$GITHUB_OUTPUT"
       - name: Deploy files
         if: env.NODE_ENV == 'sandbox'

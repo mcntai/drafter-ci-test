@@ -79,7 +79,9 @@
 
   const templatesDataBeforeChanges = cloneDeep(templatesMetaDataMap)
 
-  const template = templatesMetaDataMap.RESET_PASSWORD
+  const name = 'RESET_PASSWORD'
+
+  const template = templatesMetaDataMap[name]
 
   if (template) {
     template.name = 'updated'
