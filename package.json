@@ -8,7 +8,7 @@
     "jira:sync": "node scripts/sync-jira",
     "release": "node semantic-release",
     "sync:email-templates": "node ./scripts/sync-email-templates.js",
-    "deploy:db-changes": "node scripts/deploy-db-changes.js"
+    "deploy:db-changes": "node ./scripts/deploy-db-changes.js"
   },
   "repository": {
     "type": "git",
