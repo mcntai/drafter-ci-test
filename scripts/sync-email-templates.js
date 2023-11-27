@@ -89,7 +89,7 @@
     templatesMetaDataMap[name] = { name: 'name', id: 'id' }
   }
 
-  const updatedData = JSON.stringify(data, null, 2)
+  const updatedData = JSON.stringify(templatesMetaDataMap, null, 2)
 
   await fs.writeFile(filePath, updatedData)
 
