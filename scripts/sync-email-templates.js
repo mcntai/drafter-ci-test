@@ -1,6 +1,3 @@
-import { promisify } from 'util'
-import { exec } from 'child_process'
-
 (async () => {
   const path = require('path')
   const fs = require('fs').promises
