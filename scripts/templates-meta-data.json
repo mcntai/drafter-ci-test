@@ -1,10 +1,1 @@
-{
-  "RESET_PASSWORD": {
-    "name": "new",
-    "id": "id"
-  },
-  "SET_PASSWORD": {
-    "name": "name",
-    "id": "id"
-  }
-}
+{}

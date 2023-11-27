@@ -48,12 +48,33 @@
 
   const equals = (a, b) => a === b || JSON.stringify(a) === JSON.stringify(b)
 
+  const pick = (object, props) => {
+    //support for functional programming
+    if (!props && object instanceof Array) {
+      props = object
+
+      return object => pick(object, props)
+    }
+
+    const result = {}
+
+    props.forEach(prop => {
+      result[prop] = object[prop]
+    })
+
+    return result
+  }
+
   const compare = (a, b, attributes) => {
     if (!attributes) {
       attributes = Object.keys(a)
     }
 
     return attributes.filter(attr => !equals(a[attr], b[attr]))
+  }
+
+  const diff = (a, b, attrs) => {
+    return pick(b, compare(pick(a, attrs), pick(b, attrs)))
   }
 
   const commitUpdatedTemplatesMetaData = async () => {
@@ -66,9 +87,9 @@
   }
 
   const shouldCommitChanges = templatesDataBeforeChanges => {
-    const changes = compare(require('./templates-meta-data.json'), templatesDataBeforeChanges)
+    const changes = diff(templatesDataBeforeChanges, require('./templates-meta-data.json'))
 
-    return changes.length
+    return Object.keys(changes).length
   }
 
   const filePath = path.join(__dirname, 'templates-meta-data.json')
@@ -87,7 +108,7 @@
     templatesMetaDataMap[name] = { name: 'name', id: 'id' }
   }
 
-  templatesMetaDataMap.SET_PASSWORD = { name: 'name', id: 'id' }
+  // templatesMetaDataMap.SET_PASSWORD = { name: 'name', id: 'id' }
 
   const updatedData = JSON.stringify(templatesMetaDataMap, null, 2)
 
