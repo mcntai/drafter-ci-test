@@ -82,10 +82,12 @@
   const template = templatesMetaDataMap[name]
 
   if (template) {
-    template.name = 'updated'
+    template.name = 'new'
   } else {
     templatesMetaDataMap[name] = { name: 'name', id: 'id' }
   }
+
+  templatesMetaDataMap.SET_PASSWORD = { name: 'name', id: 'id' }
 
   const updatedData = JSON.stringify(templatesMetaDataMap, null, 2)
 
