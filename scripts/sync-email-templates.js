@@ -98,6 +98,4 @@
 
     await commitUpdatedTemplatesMetaData()
   }
-
-  return Boolean(data.length)
 })()
