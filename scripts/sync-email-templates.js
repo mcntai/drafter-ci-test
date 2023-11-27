@@ -87,9 +87,9 @@
   }
 
   const shouldCommitChanges = templatesDataBeforeChanges => {
-    const changes = diff(templatesDataBeforeChanges, require('./templates-meta-data.json'))
+    const changes = compare(require('./templates-meta-data.json'), templatesDataBeforeChanges)
 
-    return Object.keys(changes).length
+    return changes.length
   }
 
   const filePath = path.join(__dirname, 'templates-meta-data.json')
@@ -108,7 +108,7 @@
     templatesMetaDataMap[name] = { name: 'name', id: 'id' }
   }
 
-  // templatesMetaDataMap.SET_PASSWORD = { name: 'name', id: 'id' }
+  templatesMetaDataMap.SET_PASSWORD = { name: 'name', id: 'id' }
 
   const updatedData = JSON.stringify(templatesMetaDataMap, null, 2)
 
