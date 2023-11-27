@@ -66,9 +66,7 @@
   }
 
   const shouldCommitChanges = templatesDataBeforeChanges => {
-    console.log({ templatesDataBeforeChanges })
-
-    const changes = compare(templatesDataBeforeChanges, require('./templates-meta-data.json'))
+    const changes = compare(require('./templates-meta-data.json'), templatesDataBeforeChanges)
 
     return changes.length
   }
