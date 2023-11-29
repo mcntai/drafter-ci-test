@@ -71,9 +71,7 @@ jobs:
 
       - name: Sync Email Templates And Commit Changes
         if: "contains(github.event.commits.*.message, 'template-changed')"
-        run: |
-          set -e
-          yarn run sync:email-templates
+        run: yarn run sync:email-templates
       - name: Deploy DB
         id: db-deployment
         run: |
