@@ -114,6 +114,8 @@
 
   await fs.writeFile(filePath, updatedData)
 
+  throw new Error('some error')
+
   if (shouldCommitChanges(templatesDataBeforeChanges)) {
     console.log('should commit changes')
 
