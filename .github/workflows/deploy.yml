@@ -52,7 +52,7 @@ jobs:
         run: echo '${{toJSON(github.event)}}'
 
       - name: Set Commit Message
-        run: echo "COMMIT_MESSAGE=${{ github.event.commits[0].message }}" >> $GITHUB_ENV
+        run: echo "COMMIT_MESSAGE=${{ github.event.commits.*.message }}" >> $GITHUB_ENV
 
       - name: Debug
         run: |
