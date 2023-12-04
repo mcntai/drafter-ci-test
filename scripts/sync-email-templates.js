@@ -103,7 +103,7 @@
   const template = templatesMetaDataMap[name]
 
   if (template) {
-    template.name = 'new'
+    template.name = 'newA'
   } else {
     templatesMetaDataMap[name] = { name: 'name', id: 'id' }
   }
