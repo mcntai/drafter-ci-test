@@ -115,7 +115,7 @@
   await fs.writeFile(filePath, updatedData)
 
   if (shouldCommitChanges(templatesDataBeforeChanges)) {
-    console.log('shiuld commit changes')
+    console.log('should commit changes')
 
     await commitUpdatedTemplatesMetaData()
   }
