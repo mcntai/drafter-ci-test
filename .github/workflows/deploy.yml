@@ -68,9 +68,12 @@ jobs:
         run: |
           echo "success=true" >> "$GITHUB_OUTPUT"
 
+      - name: Set Commit Message
+        run: echo "COMMIT_MESSAGE=${{ toJson(github.event.commits.*.message) }}" >> $GITHUB_ENV
+
       - name: Check for template-changed
         run: |
-          containsTemplateChanged=$(echo "${github.event.commits.*.message}" | jq 'any(. | contains("template-changed"))')
+          containsTemplateChanged=$(echo "${COMMIT_MESSAGE}" | jq 'any(. | contains("template-changed"))')
           if [ "${containsTemplateChanged}" == "true" ]; then
             echo "Commit message contains 'template-changed'"
           else
