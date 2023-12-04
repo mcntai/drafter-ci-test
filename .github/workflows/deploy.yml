@@ -49,8 +49,7 @@ jobs:
           envkey_TEST_VAR: ${{ vars.TEST_VAR }}
 
       - name: Logging
-        run: |
-          echo '${{toJSON(github.event)}}'
+        run: echo '${{toJSON(github.event)}}'
 
       - name: Make script envfile
         uses: canastro/copy-file-action@master
