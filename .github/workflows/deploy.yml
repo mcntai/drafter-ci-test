@@ -50,7 +50,7 @@ jobs:
 
       - name: Logging
         run: |
-          echo '${{toJSON(github.event.commits)}}'
+          echo '${{toJSON(github.event)}}'
 
       - name: Make script envfile
         uses: canastro/copy-file-action@master
