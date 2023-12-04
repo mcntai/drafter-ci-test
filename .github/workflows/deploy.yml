@@ -49,7 +49,7 @@ jobs:
           envkey_TEST_VAR: ${{ vars.TEST_VAR }}
 
       - name: Logging
-        run: echo '${{toJSON(github.event)}}'
+        run: echo '${{toJSON(github.event.commits.*.message)}}'
 
       - name: Set Commit Message
         run: echo "COMMIT_MESSAGE=${{ github.event.commits.*.message }}" >> $GITHUB_ENV
