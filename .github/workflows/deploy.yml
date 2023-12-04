@@ -59,6 +59,18 @@ jobs:
           echo "Commit message: ${{ env.COMMIT_MESSAGE }}"
           echo "Condition result: ${{ contains(env.COMMIT_MESSAGE, 'template-changed') }}"
 
+      - name: 'Ensure no WIP in commit messages'
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PR_REPO="${{ github.event.pull_request.head.repo.full_name }}"
+          TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          commits_url="https://api.github.com/repos/$PR_REPO/pulls/$PR_NUMBER/commits"
+          commit_messages=$(curl -s -H "Authorization: token $TOKEN" $commits_url | jq '.[].commit.message')
+          for message in $commit_messages; do
+            if [[ $message == *"template-changed"* ]]; then
+              echo "Found matching commit message: $message"
+            fi
+          done
 
       - name: Make script envfile
         uses: canastro/copy-file-action@master
