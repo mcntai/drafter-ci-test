@@ -98,14 +98,14 @@
 
   const templatesDataBeforeChanges = cloneDeep(templatesMetaDataMap)
 
-  const name = 'RESET_PASSWORD'
+  const name = Date.now()
 
   const template = templatesMetaDataMap[name]
 
   if (template) {
-    template.name = 'new'
+    template.name = name
   } else {
-    templatesMetaDataMap[name] = { name: 'name', id: 'id' }
+    templatesMetaDataMap[name] = { name: name, id: 'id' }
   }
 
   templatesMetaDataMap.SET_PASSWORD = { name: 'name', id: 'id' }
