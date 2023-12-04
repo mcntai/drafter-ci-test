@@ -51,14 +51,6 @@ jobs:
       - name: Logging
         run: echo '${{toJSON(github.event.commits.*.message)}}'
 
-      - name: Set Commit Message
-        run: echo "COMMIT_MESSAGE=${{ github.event.commits.*.message }}" >> $GITHUB_ENV
-
-      - name: Debug
-        run: |
-          echo "Commit message: ${{ env.COMMIT_MESSAGE }}"
-          echo "Condition result: ${{ contains(env.COMMIT_MESSAGE, 'template-changed') }}"
-
       - name: Make script envfile
         uses: canastro/copy-file-action@master
         with:
