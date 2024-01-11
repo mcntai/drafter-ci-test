@@ -69,8 +69,9 @@ jobs:
           echo "success=true" >> "$GITHUB_OUTPUT"
 
       - name: Sync Email Templates And Commit Changes
-        if: "contains(toJson(github.event.commits.*.message), 'template-changed')"
-        run: yarn run sync:email-templates
+        run: |
+          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          if echo "$changed_files" | grep -q '^sync/email-templates/html/'; then yarn run sync:email-templates
       - name: Deploy DB
         id: db-deployment
         run: |
