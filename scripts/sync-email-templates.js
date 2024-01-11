@@ -117,11 +117,14 @@
   await fs.writeFile(filePath, updatedData)
 
   if (shouldCommitChanges(templatesDataBeforeChanges)) {
-    await execAsync('git pull')
-
     console.log('commit changes')
 
     await commitUpdatedTemplatesMetaData()
+      .catch(err => {
+        console.error(err)
+
+        throw new Error('Failed to commit changes ' + err.message)
+      })
   }
 
   process.exit(-1)
