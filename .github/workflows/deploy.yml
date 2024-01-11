@@ -68,9 +68,18 @@ jobs:
         run: |
           echo "success=true" >> "$GITHUB_OUTPUT"
 
+      - name: Get Changed Files Since Last Commit
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Sync Email Templates And Commit Changes
-        if: "contains(toJson(github.event.commits.*.message), 'template-changed')"
-        run: yarn run sync:email-templates
+        run: |
+          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+          if echo "$changed_files" | grep -q '^scripts/sync/email-templates/html/'; then
+            echo "Triggering email templates sync"
+            yarn run sync:email-templates
+          fi
       - name: Deploy DB
         id: db-deployment
         run: |

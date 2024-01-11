@@ -92,20 +92,22 @@
     return changes.length
   }
 
+  await execAsync('git pull')
+
   const filePath = path.join(__dirname, 'templates-meta-data.json')
 
   const templatesMetaDataMap = require('./templates-meta-data.json')
 
   const templatesDataBeforeChanges = cloneDeep(templatesMetaDataMap)
 
-  const name = 'RESET_PASSWORD'
+  const name = Date.now()
 
   const template = templatesMetaDataMap[name]
 
   if (template) {
-    template.name = 'newA'
+    template.name = name
   } else {
-    templatesMetaDataMap[name] = { name: 'name', id: 'id' }
+    templatesMetaDataMap[name] = { name: name, id: 'id' }
   }
 
   templatesMetaDataMap.SET_PASSWORD = { name: 'name', id: 'id' }
@@ -118,5 +120,10 @@
     console.log('commit changes')
 
     await commitUpdatedTemplatesMetaData()
+      .catch(err => {
+        console.error(err)
+
+        throw new Error('Failed to commit changes ' + err.message)
+      })
   }
 })()
