@@ -76,7 +76,9 @@ jobs:
       - name: Sync Email Templates And Commit Changes
         run: |
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          if echo "$changed_files" | grep -q '^sync/email-templates/html/'; then yarn run sync:email-templates
+          if echo "$changed_files" | grep -q '^sync/email-templates/html/'; then
+            yarn run sync:email-templates
+          fi
       - name: Deploy DB
         id: db-deployment
         run: |
