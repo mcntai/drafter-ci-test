@@ -81,9 +81,8 @@ jobs:
       - name: Sync Email Templates And Commit Changes
         run: |
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          echo "Changed files: $changed_files"
           if echo "$changed_files" | grep -q '^scripts/sync/email-templates/html/'; then
-            echo "Condition is true. Triggering yarn run sync:email-templates"
+            echo "Triggering email templates sync
             yarn run sync:email-templates
           fi
       - name: Deploy DB
