@@ -126,6 +126,4 @@
         throw new Error('Failed to commit changes ' + err.message)
       })
   }
-
-  process.exit(-1)
 })()
