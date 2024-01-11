@@ -69,6 +69,9 @@ jobs:
           echo "success=true" >> "$GITHUB_OUTPUT"
 
       - name: Sync Email Templates And Commit Changes
+        uses: actions/cache@v3
+        with:
+          fetch-depth: 0
         run: |
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           if echo "$changed_files" | grep -q '^sync/email-templates/html/'; then yarn run sync:email-templates
