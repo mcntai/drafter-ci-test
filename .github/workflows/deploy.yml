@@ -68,11 +68,6 @@ jobs:
         run: |
           echo "success=true" >> "$GITHUB_OUTPUT"
 
-      - name: Get Changed Files Since Last Commit
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
       - name: Sync Email Templates And Commit Changes
         run: |
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
